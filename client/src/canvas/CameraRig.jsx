@@ -1,22 +1,20 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-undef */
-import { useRef } from "react";
-
 import { easing } from "maath";
 import { useSnapshot } from "valtio";
 import { useFrame } from "@react-three/fiber";
+import { useRef } from "react"; // Import useRef to create a ref for the CameraRig
 
 import state from "../store";
 
-const CameraRig = ({ chidren }) => {
-	const group = useRef();
-	const snap = useSnapshot(state);
+const CameraRig = ({ children }) => {
+	const group = useRef(); // Create a ref for the CameraRig
+
+	const snap = useSnapshot(state); // Get the snapshot from the state
 
 	useFrame((state, delta) => {
 		const isBreakpoint = window.innerWidth <= 1260;
 		const isMobile = window.innerWidth <= 600;
 
-		//set the initial posiistion of the model
+		// Set the initial position of the model
 		let targetPosition = [-0.4, 0, 2];
 
 		if (snap.intro) {
@@ -27,10 +25,10 @@ const CameraRig = ({ chidren }) => {
 			else targetPosition = [0, 0, 2];
 		}
 
-		// set the model camera position
+		// Set the model camera position
 		easing.damp3(state.camera.position, targetPosition, 0.25, delta);
 
-		// set the model rotation smoothly
+		// Set the model rotation smoothly
 		easing.dampE(
 			group.current.rotation,
 			[state.pointer.y / 10, -state.pointer.x / 5, 0],
@@ -39,7 +37,7 @@ const CameraRig = ({ chidren }) => {
 		);
 	});
 
-	return <group ref={group}>{chidren}</group>;
+	return <group ref={group}>{children}</group>; // Use the group ref and render children inside the CameraRig
 };
 
 export default CameraRig;
