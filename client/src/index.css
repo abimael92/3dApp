@@ -36,11 +36,11 @@ html {
 }
 
 .editortabs-container {
-	@apply glassmorphism w-16 border-[2px] rounded-lg flex flex-col justify-center items-center ml-1 py-4 gap-4;
+	@apply glassmorphism w-32 border-[2px] rounded-lg flex flex-col justify-center items-center ml-1 py-4 gap-4;
 }
 
 .filtertabs-container {
-	@apply absolute z-10 bottom-5 right-0 left-0 w-full flex justify-center items-center flex-wrap gap-4;
+	@apply absolute z-10 bottom-5 right-0 left-0 w-full  flex justify-center items-center flex-wrap gap-4;
 }
 
 .aipicker-container {
@@ -60,7 +60,7 @@ html {
 }
 
 .tab-btn {
-	@apply w-14 h-14 flex justify-center items-center cursor-pointer select-none;
+	@apply w-32 h-32 flex justify-center items-center cursor-pointer select-none;
 }
 
 .glassmorphism {

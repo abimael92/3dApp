@@ -1,4 +1,6 @@
+/* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
+import React from "react";
 import { easing } from "maath";
 import { useSnapshot } from "valtio";
 import { useFrame } from "@react-three/fiber";
@@ -17,11 +19,10 @@ const Shirt = () => {
 		easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
 	);
 
-	// const stateString = JSON.stringify(snap);
+	const stateString = JSON.stringify(snap);
 
 	return (
-		// <group key={stateString}>
-		<group>
+		<group key={stateString}>
 			<mesh
 				castShadow
 				geometry={nodes.T_Shirt_male.geometry}
@@ -29,7 +30,7 @@ const Shirt = () => {
 				material-roughness={1}
 				dispose={null}
 			>
-				{/* {snap.isFullTexture && (
+				{snap.isFullTexture && (
 					<Decal
 						position={[0, 0, 0]}
 						rotation={[0, 0, 0]}
@@ -44,11 +45,11 @@ const Shirt = () => {
 						rotation={[0, 0, 0]}
 						scale={0.15}
 						map={logoTexture}
-						map-anisotropy={16}
+						// map-anisotropy={16}
 						depthTest={false}
 						depthWrite={true}
 					/>
-				)} */}
+				)}
 			</mesh>
 		</group>
 	);
