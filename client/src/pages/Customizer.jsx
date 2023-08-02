@@ -69,11 +69,15 @@ const Customizer = () => {
 				}),
 			});
 
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+
 			const data = await response.json();
 
 			handleDecals(type, `data:image/png;base64,${data.photo}`);
 		} catch (error) {
-			alert(error);
+			alert(error.message); // Display the error message instead of the whole error object
 		} finally {
 			setGeneratingImg(false);
 			setActiveEditorTab("");
