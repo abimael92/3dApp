@@ -29,27 +29,64 @@ The Customizable T-Shirt Page is an interactive web application that empowers us
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/abimael92/threejs.git
-
+git clone https://github.com/your-username/3dApp.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
-cd threejs
+cd 3dApp
 ```
 
-3. Install the dependencies:
+3. Install dependencies for the client and server:
+
+- For the client:
 
 ```bash
+cd client
 npm install
 ```
 
-4. Run the development server:
+- For the server:
 
 ```bash
+cd ../server
+npm install
+```
+
+4. Set up environment variables:
+
+Create a .env file in the server directory:
+
+```bash
+PORT=5000
+OPENAI_API_KEY=your-openai-api-key
+```
+
+\*\*Replace your-openai-api-key with your actual OpenAI API key.
+
+5. Run the client and server:
+
+Open two terminal windows.
+
+In the first terminal, start the client:
+
+```bash
+cd client
 npm run dev
 ```
+
+In the second terminal, start the server:
+
+```bash
+cd server
+npm start
+```
+
+6. Access the application:
+
+The client will run on http://localhost:3000.
+The server will run on http://localhost:5000.
 
 ## Usage
 
