@@ -2,7 +2,7 @@
 
 The Customizable T-Shirt Page is an interactive web application that empowers users to design their own unique t-shirts by customizing various aspects, including colors, logos, and textures. Leveraging the power of OpenAI API, users can upload or generate custom logos and textures, which they can then apply to their t-shirts. The project utilizes modern web technologies like React, Three.js, and Tailwind CSS to provide an engaging and user-friendly experience.
 
-![Customizable T-Shirt Page Preview](/3dApp/client/public/preview.png)
+![Customizable T-Shirt Page Preview](/client/public/preview.png)
 
 ## Table of Contents
 
