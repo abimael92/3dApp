@@ -1,19 +1,21 @@
 import express from "express";
+import modelslabRoutes from './routes/modelslab.routes.js';
 import * as dotenv from "dotenv";
 import cors from "cors";
 
-import dalleRoutes from "./routes/dalle.routes.js";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
-app.use(express.json({ limig: '50mb' }));
 
-app.use('/api/v1/dalle', dalleRoutes);
+const PORT = process.env.PORT || 8080;
 
-app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Server is running' })
+app.use(express.json());
+
+// Mount huggingface route
+app.use('/api/v1/modelslab', modelslabRoutes);
+
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });
-
-app.listen(8080, () => console.log('Server has started on port 8080'));
