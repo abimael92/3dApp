@@ -1,19 +1,22 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
-import React from "react";
-import { easing } from "maath";
-import { useSnapshot } from "valtio";
-import { useFrame } from "@react-three/fiber";
-import { Decal, useGLTF, useTexture } from "@react-three/drei";
+import React from 'react';
+import { easing } from 'maath';
+import { useSnapshot } from 'valtio';
+import { useFrame } from '@react-three/fiber';
+import { Decal, useGLTF, useTexture } from '@react-three/drei';
 
-import state from "../store";
+import state from '../store';
 
 const Shirt = () => {
 	const snap = useSnapshot(state);
-	const { nodes, materials } = useGLTF("/shirt_baked.glb");
+	const { nodes, materials } = useGLTF('/shirt_baked.glb');
 
-	const logoTexture = useTexture(snap.logoDecal);
-	const fullTexture = useTexture(snap.fullDecal);
+	if (!snap.logoDecal) console.warn('No logoDecal texture URL set');
+	if (!snap.fullDecal) console.warn('No fullDecal texture URL set');
+
+	const logoTexture = snap.logoDecal ? useTexture(snap.logoDecal) : null;
+	const fullTexture = snap.fullDecal ? useTexture(snap.fullDecal) : null;
 
 	useFrame((state, delta) =>
 		easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
@@ -30,7 +33,7 @@ const Shirt = () => {
 				material-roughness={1}
 				dispose={null}
 			>
-				{snap.isFullTexture && (
+				{snap.isFullTexture && fullTexture && (
 					<Decal
 						position={[0, 0, 0]}
 						rotation={[0, 0, 0]}
@@ -39,13 +42,12 @@ const Shirt = () => {
 					/>
 				)}
 
-				{snap.isLogoTexture && (
+				{snap.isLogoTexture && logoTexture && (
 					<Decal
 						position={[0, 0.04, 0.15]}
 						rotation={[0, 0, 0]}
 						scale={0.15}
 						map={logoTexture}
-						// map-anisotropy={16}
 						depthTest={false}
 						depthWrite={true}
 					/>
