@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 
-// Mount huggingface route
 app.use('/api/v1/modelslab', modelslabRoutes);
 
 app.listen(PORT, () => {
