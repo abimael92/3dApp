@@ -24,15 +24,18 @@ router.post('/', async (req, res) => {
             }),
         });
 
-        if (!response.ok) {
-            const err = await response.text();
-            return res.status(response.status).json({ error: err });
+        const data = await response.json().catch(() => null);
+
+        if (!response.ok || !data || data.status === 'error') {
+            const message = data?.message || data?.error || 'A server error occurred. Please try again later.';
+            return res.status(response.status || 500).json({ status: 'error', message });
         }
 
-        const data = await response.json();
         res.status(200).json(data);
+
+
     } catch (err) {
-        console.error(err);
+        console.error(err.message);
         res.status(500).json({ error: 'Modelslab API error' });
     }
 });
