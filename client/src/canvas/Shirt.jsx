@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { easing } from 'maath';
 import { useSnapshot } from 'valtio';
 import { useFrame } from '@react-three/fiber';
@@ -12,15 +12,29 @@ const Shirt = () => {
 	const snap = useSnapshot(state);
 	const { nodes, materials } = useGLTF('/shirt_baked.glb');
 
-	if (!snap.logoDecal) console.warn('No logoDecal texture URL set');
-	if (!snap.fullDecal) console.warn('No fullDecal texture URL set');
+	useEffect(() => {
+		if (!snap.logoDecal && !snap.fullDecal) {
+			alert('No decal URL set. Please upload or set an image.');
+		}
+	}, [snap.logoDecal, snap.fullDecal]);
 
-	const logoTexture = snap.logoDecal ? useTexture(snap.logoDecal) : null;
-	const fullTexture = snap.fullDecal ? useTexture(snap.fullDecal) : null;
+	const placeholderURL = 'https://via.placeholder.com/512';
 
-	useFrame((state, delta) =>
-		easing.dampC(materials.lambert1.color, snap.color, 0.25, delta)
+	const logoTexture = useTexture(
+		snap.logoDecal || placeholderURL,
+		undefined,
+		() => alert('Failed to load logo texture.')
 	);
+
+	const fullTexture = useTexture(
+		snap.fullDecal || placeholderURL,
+		undefined,
+		() => alert('Failed to load full texture.')
+	);
+
+	useFrame((state, delta) => {
+		easing.dampC(materials.lambert1.color, snap.color, 0.25, delta);
+	});
 
 	const stateString = JSON.stringify(snap);
 
